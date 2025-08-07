@@ -27,7 +27,7 @@ app.listen(PORT, () => {
   // Self-ping to keep alive every 5 minutes
   setInterval(() => {
     const options = {
-      hostname: 'https://cod-server.onrender.com', // or your public domain if deployed remotely
+      hostname: 'https://cod-server-ku1n.onrender.com', // or your public domain if deployed remotely
       port: PORT,
       path: '/',
       method: 'GET'
@@ -44,3 +44,4 @@ app.listen(PORT, () => {
     req.end();
   }, 300000); // 300000 ms = 5 minutes
 });
+
