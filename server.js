@@ -1,17 +1,14 @@
-// server.js
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import confirmOrderRouter from './api/confirmOrder.js';
 import dotenv from 'dotenv';
-import http from 'http'; // or 'https' if using HTTPS
+import https from 'https'; // use https here because your URL is https
 
 dotenv.config();
 
-
 const app = express();
 const PORT = process.env.PORT || 5000;
-
 
 // Enable CORS for all origins (default)
 app.use(cors());
@@ -27,21 +24,19 @@ app.listen(PORT, () => {
   // Self-ping to keep alive every 5 minutes
   setInterval(() => {
     const options = {
-      hostname: 'https://cod-server-ku1n.onrender.com', // or your public domain if deployed remotely
-      port: PORT,
+      hostname: 'cod-server-ku1n.onrender.com', // NO https:// prefix here
       path: '/',
-      method: 'GET'
+      method: 'GET',
     };
 
-    const req = http.request(options, res => {
+    const req = https.request(options, (res) => {
       console.log('Self-ping status code: ' + res.statusCode);
     });
 
-    req.on('error', err => {
+    req.on('error', (err) => {
       console.error('Self-ping error: ' + err.message);
     });
 
     req.end();
-  }, 300000); // 300000 ms = 5 minutes
+  }, 300000); // 5 minutes in ms
 });
-
